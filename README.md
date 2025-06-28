@@ -12,7 +12,6 @@ library(rtracklayer)
 library(TxDb.Hsapiens.UCSC.hg38.knownGene)
 library(org.Hs.eg.db)
 library(clusterProfiler)
-library(fgsea)  # Added for fgseaMultilevel
 
 # Install and load KEGGREST if not already installed
 > if (!requireNamespace("KEGGREST", quietly = TRUE)) {
