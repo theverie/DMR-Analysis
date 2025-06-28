@@ -264,7 +264,7 @@ if (length(gene_list_entrez) >= 1) {
         out.suffix = "AD_DMRs",
         kegg.native = TRUE,
         limit = list(gene = max(abs(pv_data), na.rm = TRUE)),
-        kegg.dir = "/Users/admin/Downloads"
+        kegg.dir = "/path"
     )
     
     cat("\nKEGG pathway plot saved to Downloads as:", 
