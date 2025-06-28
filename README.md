@@ -198,26 +198,26 @@ gene_list_entrez <- gene_list[!is.na(entrez_ids)]
 names(gene_list_entrez) <- entrez_ids[!is.na(entrez_ids)]
 
 # Perform KEGG pathway enrichment
-> if (length(gene_list_entrez) >= 1) {
-     background_genes <- keys(org.Hs.eg.db, keytype = "ENTREZID")
-     kegg_result <- enrichKEGG(gene = names(gene_list_entrez), universe = background_genes, organism = "hsa", pvalueCutoff = 0.05, qvalueCutoff = 0.2, minGSSize = 10, maxGSSize = 500)
-     ad_kegg_result <- kegg_result[kegg_result$ID == "hsa05010" | grepl("hsa050", kegg_result$ID), ]
-     if (nrow(ad_kegg_result) == 0) {
-       cat("No AD-specific pathways found. Showing all significant results.\n")
-       ad_kegg_result <- kegg_result
-       }
-     print(ad_kegg_result)
-     save_path <- "C:/Users/YourUsername/Documents/AD_Analysis/Results/"
-     file_name <- "kegg_all_ad_results.csv"
-     if (!dir.exists(save_path)) dir.create(save_path, recursive = TRUE)
-     full_path <- file.path(save_path, file_name)
-     write.csv(as.data.frame(ad_kegg_result), full_path, row.names = FALSE)
-     cat("\nKEGG results saved to:", full_path, "\n")
-     if (nrow(ad_kegg_result) > 0) {
+if (length(gene_list_entrez) >= 1) {
+    background_genes <- keys(org.Hs.eg.db, keytype = "ENTREZID")
+    kegg_result <- enrichKEGG(gene = names(gene_list_entrez), universe = background_genes, organism = "hsa", pvalueCutoff = 0.05, qvalueCutoff = 0.2, minGSSize = 10, maxGSSize = 500)
+    ad_kegg_result <- kegg_result[kegg_result$ID == "hsa05010" | grepl("hsa050", kegg_result$ID), ]
+    if (nrow(ad_kegg_result) == 0) {
+    cat("No AD-specific pathways found. Showing all significant results.\n")
+    ad_kegg_result <- kegg_result
+    }
+    print(ad_kegg_result)
+    save_path <- "C:/Users/YourUsername/Documents/AD_Analysis/Results/"
+    file_name <- "kegg_all_ad_results.csv"
+    if (!dir.exists(save_path)) dir.create(save_path, recursive = TRUE)
+    full_path <- file.path(save_path, file_name)
+    write.csv(as.data.frame(ad_kegg_result), full_path, row.names = FALSE)
+    cat("\nKEGG results saved to:", full_path, "\n")
+    if (nrow(ad_kegg_result) > 0) {
          dotplot(ad_kegg_result, showCategory = 10, title = "AD-Related KEGG Pathways (All Significant DMRs)")
-     } else {
-         cat("No significant KEGG results to plot.\n")
-     }
+    } else {
+        cat("No significant KEGG results to plot.\n")
+    }
  } else {
      cat("No valid genes for KEGG analysis.\n")
  }
